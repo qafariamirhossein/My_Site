@@ -34,8 +34,11 @@
                       <h2>Send us a message</h2>
                     </div>
                     <div class="content">
-                      <form id="contact" action="" method="post">
+
+
+                      <form action="{% url 'website:contact' %}" method="post">        
                         <div class="row">
+                          {% csrf_token %}
                           <div class="col-md-6 col-sm-12">
                             <fieldset>
                               <input name="name" type="text" id="name" placeholder="Your name" required="">
@@ -63,6 +66,29 @@
                           </div>
                         </div>
                       </form>
+                      {% if messages %}
+                      {% for message in messages %}
+                        <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+                      {% endfor %}
+                      {% endif %}
+                    
+                      {% if form.errors %}
+                      <div class="alert alert-error">
+                        <h4>Please fix the following errors</h4>
+                        <ul>
+                        {% for field in form %}
+                          {% if field.errors %}
+                          {% for error in field.errors %}
+                            <li><a href="#id_{{ field.name }}" class="error">{{ error|escape }}</a></li>
+                          {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                        </ul>
+                        {% if form.non_field_errors %}
+                        {{ form.non_field_errors }}
+                        {% endif %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
