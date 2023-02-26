@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import *
+from blog.views import*
+from blog.models import*
 from .forms import *
 # Create your views here.
 
 def index_view(request):
     posts = Post.objects.all()
-    context = {'posts':posts}
+    blogP = BlogPost.objects.all()
+    context = {'posts':posts,'blogP':blogP}
     return render(request,'index.html',context)
     
 def about_view(request):
@@ -28,8 +31,6 @@ def contact_view(request):
     
 
 
-def blog_view(request):
-    return render(request,'blog.html')
 
 def postdetails_view(request):
     return render(request,'post-details.html')
