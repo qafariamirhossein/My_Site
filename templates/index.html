@@ -53,7 +53,9 @@
                       <img src="{{post.image.url}}" alt="">
                     </div>
                     <div class="down-content">
-                      <span></span>
+                      {% for cat in post.category.all %}
+                      <span>{{cat.name}}</span>
+                      {% endfor %}
                       <a href="">
                         <h4>{{post.title}}</h4>
                       </a>
