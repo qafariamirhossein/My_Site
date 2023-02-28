@@ -1,7 +1,7 @@
 from django.db import models
 from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -20,8 +20,16 @@ class Post(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField(null=True)
+
+    class Meta:
+        ordering = ['-created_date']
+
     def __str__(self):
-        return self.title
+        return f"{self.title} '{self.id}'"
+
+
+    def get_absolute_url(self):
+        return reverse('website:post-details',kwargs={'pid':self.id})
 
         
 class Contact(models.Model):
