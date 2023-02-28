@@ -32,3 +32,14 @@ class Contact(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    name = models.CharField(max_length=225)
+    email = models.EmailField()
+    subject = models.CharField(max_length=225)
+    comment = models.TextField()
+    approved = models.BooleanField(default=False)
+    published_date = models.DateTimeField(null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+

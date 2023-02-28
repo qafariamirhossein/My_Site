@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import *
@@ -32,5 +32,18 @@ def contact_view(request):
 
 
 
-def postdetails_view(request):
-    return render(request,'post-details.html')
+def postdetails_view(request,pid):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request,messages.SUCCESS,'thanks your comment sent successfuly')
+        else:
+            messages.add_message(request,messages.ERROR,'oops your ticket didnt sent successfuly')
+
+    
+    form = CommentForm
+    posts = Post.objects.all()
+    post = get_object_or_404(posts,pk=pid)
+    context = {'post':post,'form':form}
+    return render(request,'post-details.html',context)
