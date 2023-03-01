@@ -47,3 +47,22 @@ def postdetails_view(request,pid):
     post = get_object_or_404(posts,pk=pid)
     context = {'post':post,'form':form}
     return render(request,'post-details.html',context)
+
+def web_category(request,cat_name):
+    posts = Post.objects.all()
+    posts = Post.objects.filter(category__name=cat_name)
+    context = {'posts':posts}
+    return render(request,'index.html',context)
+
+
+def web_tag(request,tag_name):
+    posts = Post.objects.all()
+    posts = Post.objects.filter(tags__name=tag_name)
+    context = {'posts':posts}
+    return render(request,'index.html',context)
+
+def web_writer(request,writer_name):
+    posts = Post.objects.all()
+    posts = Post.objects.filter(writer = writer_name)
+    context = {'posts':posts}
+    return render(request,'index.html',context)
