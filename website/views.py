@@ -63,6 +63,6 @@ def web_tag(request,tag_name):
 
 def web_writer(request,writer_name):
     posts = Post.objects.all()
-    posts = Post.objects.filter(writer = writer_name)
+    posts = Post.objects.filter(writer__username=writer_name)
     context = {'posts':posts}
     return render(request,'index.html',context)

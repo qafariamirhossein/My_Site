@@ -6,7 +6,7 @@
         <ul>
             {% for post in posts %}
             {% for cat in post.category.all %}
-            <li><a href="#">{{cat.name}}</a></li>
+            <li><a href="{% url 'website:category' cat_name=cat.name %}">{{cat.name}}</a></li>
             {% endfor %}
             {% endfor %}
         </ul>
