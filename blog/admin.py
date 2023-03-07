@@ -9,5 +9,11 @@ class PostAdmin(SummernoteModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name','email','created_date')
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name','subject','approved')
+    list_filter = ('approved','name')
+
 
 admin.site.register(BlogPost, PostAdmin)
+admin.site.register(Comment,CommentAdmin)
+

@@ -30,24 +30,6 @@ def contact_view(request):
     return render(request,'contact.html',{'form':form})
     
 
-
-
-def postdetails_view(request,pid):
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request,messages.SUCCESS,'thanks your comment sent successfuly')
-        else:
-            messages.add_message(request,messages.ERROR,'oops your ticket didnt sent successfuly')
-
-    
-    form = CommentForm
-    posts = Post.objects.all()
-    post = get_object_or_404(posts,pk=pid)
-    context = {'post':post,'form':form}
-    return render(request,'post-details.html',context)
-
 def web_category(request,cat_name):
     posts = Post.objects.all()
     posts = Post.objects.filter(category__name=cat_name)

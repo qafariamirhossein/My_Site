@@ -29,7 +29,7 @@ class Post(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('website:post-details',kwargs={'pid':self.id})
+        return reverse('blog:post-details',kwargs={'pid':self.id})
 
         
 class Contact(models.Model):
@@ -37,17 +37,6 @@ class Contact(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=225)
     message = models.TextField()
-    created_date = models.DateTimeField(auto_now_add=True)
-
-
-class Comment(models.Model):
-    post = models.ForeignKey(Post,on_delete=models.CASCADE)
-    name = models.CharField(max_length=225)
-    email = models.EmailField()
-    subject = models.CharField(max_length=225)
-    comment = models.TextField()
-    approved = models.BooleanField(default=False)
-    published_date = models.DateTimeField(null=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
 
