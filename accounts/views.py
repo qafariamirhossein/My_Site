@@ -35,3 +35,7 @@ def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('/')
+
+
+def password_reset_view(request):
+    return render(request,'accounts/password_reset_form.html')
