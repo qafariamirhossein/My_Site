@@ -9,8 +9,7 @@ from .forms import *
 
 def index_view(request):
     posts = Post.objects.all()
-    blogP = BlogPost.objects.all()
-    context = {'posts':posts,'blogP':blogP}
+    context = {'posts':posts}
     return render(request,'index.html',context)
     
 def about_view(request):
@@ -30,21 +29,3 @@ def contact_view(request):
     return render(request,'contact.html',{'form':form})
     
 
-def web_category(request,cat_name):
-    posts = Post.objects.all()
-    posts = Post.objects.filter(category__name=cat_name)
-    context = {'posts':posts}
-    return render(request,'index.html',context)
-
-
-def web_tag(request,tag_name):
-    posts = Post.objects.all()
-    posts = Post.objects.filter(tags__name=tag_name)
-    context = {'posts':posts}
-    return render(request,'index.html',context)
-
-def web_writer(request,writer_name):
-    posts = Post.objects.all()
-    posts = Post.objects.filter(writer__username=writer_name)
-    context = {'posts':posts}
-    return render(request,'index.html',context)

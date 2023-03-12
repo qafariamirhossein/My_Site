@@ -14,6 +14,6 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ('approved','name')
 
 
-admin.site.register(BlogPost, PostAdmin)
+admin.site.register(Post, PostAdmin)
 admin.site.register(Comment,CommentAdmin)
-
+admin.site.register(Category)
