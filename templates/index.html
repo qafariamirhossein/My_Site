@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="owl-banner owl-carousel">
 
-          {% for post in blogP %}
+          {% for post in posts %}
           <div class="item">
             <img src="{{post.image.url}}" alt="">
             <div class="item-content">
@@ -63,7 +63,7 @@
                         <h4>{{post.title}}</h4>
                       </a>
                       <ul class="post-info">
-                        <li><a href="{% url 'blog:author' author_name=post.author %}">{{post.author}}</a></li>
+                        <li><a href="{% url 'blog:author' author_username=post.author %}">{{post.author}}</a></li>
                         <li><a href="#">{{post.published_date|date:"M d, Y"}}</a></li>
                         <li><a href="#">12 Comments</a></li>
                       </ul>
@@ -122,14 +122,10 @@
                 </div>
                 <div class="col-lg-12">
 
-                  {% include 'categories.html' %}
+                  {% postcategories %}
 
                 </div>
-                <div class="col-lg-12">
 
-                  {% include 'tags.html' %}
-
-                </div>
               </div>
             </div>
           </div>

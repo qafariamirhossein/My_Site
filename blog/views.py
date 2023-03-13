@@ -5,8 +5,15 @@ from .models import *
 from .forms import *
 from django.core.paginator import Paginator
 
-def blog_view(request):
+def blog_view(request,**kwargs):
     posts = Post.objects.all()
+    if kwargs.get('cat_name')!=None:
+        posts = posts.filter(category__name = kwargs['cat_name'])
+    if kwargs.get('author_username')!=None:
+        posts= posts.filter(author__username = kwargs['author_username'])
+    if kwargs.get('tag_name')!=None:
+        posts = posts.filter(tags__name__in = [kwargs['tag_name']])
+    
     paginator = Paginator(posts, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -24,27 +31,8 @@ def postdetails_view(request,pid):
 
     
     form = CommentForm
-    posts = Post.objects.filter(status=1)
+    posts = Post.objects.all()
     post = get_object_or_404(posts,pk=pid)
     context = {'post':post,'form':form}
     return render(request,'post-details.html',context)
 
-
-def blog_category(request,cat_name):
-    posts = Post.objects.filter(category__name=cat_name)
-    context = {'posts':posts}
-    return render(request,'blog.html',context)
-
-
-def blog_tag(request,tag_name):
-    posts = Post.objects.all()
-    posts = Post.objects.filter(tags__name=tag_name)
-    context = {'posts':posts}
-    return render(request,'blog.html',context)
-    
-
-def blog_author(request,author_name):
-    posts = Post.objects.all()
-    posts = Post.objects.filter(author__username=author_name)
-    context = {'posts':posts}
-    return render(request,'blog.html',context)
